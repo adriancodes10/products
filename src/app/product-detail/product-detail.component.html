@@ -1,0 +1,124 @@
+
+<section style="background-color: #eee;height: 100%; " >
+
+<div class="container py-5">
+  <div class="d-flex flex-column align-items-center ">
+    <h2 class="px-4 pt-4
+          ">Edit product:</h2>
+    <div *ngIf="product">
+      <div class=" justify-content-center">
+        <div class="card py-4 px-2 text-black rounded-4 shadow-lg">
+          <h3 class="px-4 text-black-50">{{product.name | uppercase}} </h3>
+          <div class="card-body">
+            <form [formGroup]="editForm" (ngSubmit)="update()">
+            <div class="text-center">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" >name:</span>
+                </div>
+                <input [(ngModel)]="product.name" type="text" class="form-control"  formControlName="name" required placeholder="name" aria-label="name" aria-describedby="product name">
+                <div *ngIf="name?.invalid && (name?.dirty || name?.touched)" class="alert alert-danger">
+                  <div *ngIf="name?.errors?.['required']">
+                    Name is required.
+                  </div>
+                  <div *ngIf="name?.errors?.['maxlength']">
+                    Name must be less than 56 characters long.
+                  </div>
+                </div>
+              </div>
+        
+              <br>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">type:</span>
+                </div>
+                <input [(ngModel)]="product.type" type="text" class="form-control" formControlName="type" required placeholder="Type" aria-label="Type" aria-describedby="product type">
+                <div *ngIf="type?.invalid && (type?.dirty || type?.touched)" class="alert alert-danger">
+                  <div *ngIf="type?.errors?.['required']">
+                    Type is required.
+                  </div>
+                  <div *ngIf="type?.errors?.['maxlength']">
+                    Type must be less than 56 characters long.
+                  </div>
+                </div>
+              </div>
+ 
+            </div>
+            <div>
+              <div class="flex-row">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">description:</span>
+                  </div>
+                  <textarea class="form-control" formControlName="description" required aria-label="With textarea" [(ngModel)]="product.description" placeholder="product description"></textarea>
+                  <div *ngIf="description?.invalid && (description?.dirty || description?.touched)" class="alert alert-danger">
+                  <div *ngIf="description?.errors?.['required']">
+                    Description is required.
+                  </div>
+                  <div *ngIf="description?.errors?.['maxlength']">
+                    Description must be less than 56 characters long.
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">color:</span>
+                </div>
+                <input [(ngModel)]="product.color" type="text" class="form-control" formControlName="color" required placeholder="Type" aria-label="Type" aria-describedby="product color">
+                <div *ngIf="color?.invalid && (color?.dirty || color?.touched)" class="alert alert-danger">
+                  <div *ngIf="color?.errors?.['required']">
+                    Color is required.
+                  </div>
+                  <div *ngIf="name?.errors?.['maxlength']">
+                    Color must be less than 56 characters long.
+                  </div>
+                </div>
+              </div>
+                <!-- <label for="color">color: </label> -->
+                <!-- <input id="color" [(ngModel)]="product.color" placeholder="color"> -->
+              </div>
+              <div class="d-flex justify-content-between">
+                
+                <!-- <label for="price">price: </label> -->
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">price: $</span>
+                  </div>
+                  <input type="number" class="form-control" formControlName="price" required aria-label="Amount (to the nearest dollar)" id="price"  pattern="[0-9]+([\,|\.][0-9]+)?" [(ngModel)]="product.price" placeholder="price">
+                  <div class="input-group-append">
+                    <span class="input-group-text">.00</span>
+                  </div>
+                  <div *ngIf="price?.invalid && (price?.dirty || price?.touched)" class="alert alert-danger">
+                    <div *ngIf="price?.errors?.['required']">
+                    Price is required.
+                    </div>
+                    <div *ngIf="price?.errors?.['min']">
+                    Name must not be less than $0.
+                    </div> 
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end  font-weight-bold mt-4">
+           
+                <button class="btn btn-primary me-1" type=”submit” [disabled]="!editForm.valid" >Update</button>
+            </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!product" class="justify-content-center d-flex flex-column align-content-center align-items-center justify-items-center p-4">
+      <h1 class="text-center"><span class="text-danger">Error:</span> product not found</h1>
+       <a class="mt-2 btn btn-primary me-1 center" routerLink="/product-list" routerLinkActive="active" ariaCurrentWhenActive="page">To Product List</a>
+
+    </div>
+  </div>
+</div>
+
+</section>
